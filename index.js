@@ -30,23 +30,23 @@ async function run() {
     await client.connect();
     const todoCollection = client.db('todoApp').collection('todo');
 
-    // all products
+    // all todos
     app.get('/todo', async (req, res) => {
       const query = {};
       const cursor = todoCollection.find(query);
-      const products = await cursor.toArray();
-      res.send(products);
+      const todos = await cursor.toArray();
+      res.send(todos);
     });
 
-    // post product data
+    // post todos data
     app.post('/todo', async (req, res) => {
-      const newProduct = req.body;
-      // console.log('adding new Product', newProduct);
-      const result = await todoCollection.insertOne(newProduct);
+      const newTodo = req.body;
+      // console.log('adding new todos', newTodo);
+      const result = await todoCollection.insertOne(newTodo);
       res.send(result);
     });
 
-    //Delete a data
+    //Delete a Todo data
     app.delete('/todo/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
